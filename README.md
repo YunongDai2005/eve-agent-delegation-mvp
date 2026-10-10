@@ -99,6 +99,8 @@ The captured [Agent Card](evidence/agent-card.json), [MCP tool schemas](evidence
 and [LangGraph SVG](docs/langgraph.svg) were exported from running services/compiled code.
 Regenerate with `python scripts/capture_static.py`. That script expects the local SQLite
 store for the recorded task; if no live packet exists it records a clearly synthetic mock task.
+To re-export the SVGs, run `pwsh -File scripts/render_diagrams.ps1` with Node/npm installed;
+adjust the Chromium executable path in `docs/puppeteer.example.json` for your machine.
 
 For official Inspector **structural** validation, clone the revision in `upstreams.json`, then:
 

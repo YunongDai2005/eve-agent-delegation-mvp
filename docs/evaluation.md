@@ -58,10 +58,21 @@ temporally matched to either event. The full upstream GeoJSON is preserved in `r
 - Supervisor process was terminated while delegation was in progress. After restart, SQLite
   restored the checkpoint, the final task succeeded, and only one successful planning node
   appeared in the trace. [Recovery packet](../evidence/checkpoint-recovery.json).
+- A **fresh local Git clone and new virtual environment** installed using the README setup
+  script. Mock full-chain execution succeeded in 4.40 s; live flood/resource execution succeeded
+  in 13.34 s. [Reproduction record](../evidence/reproduction.json),
+  [setup log](../evidence/clean-setup.txt), [clean live packet](../evidence/clean-live.json),
+  [clean mock packet](../evidence/clean-mock.json). These extra runs are separate from the
+  three-case live evaluation denominator. All eight upstream workspaces stayed clean; official
+  MCP snapshot hashes matched in both original and cloned projects.
 - Official A2A Inspector's **original structural validators** returned zero Agent Card and
   Task errors. The actual live Task was fetched from SQLite after a service restart via an
   independent SDK client. [Validation record](../evidence/inspector-validation.json).
   No full conformance/GUI result is claimed.
+- Real-model planning without configuration was exercised and returned explicit
+  `failed / RuntimeError`, without falling back to rules or synthetic evidence.
+  [Missing-configuration packet](../evidence/llm-unconfigured.json). This verifies the missing-key
+  path only, not real model behavior.
 - Ruff, formatting, mypy and `pip check` records are in `evidence/checks.txt`.
 
 ## Known compatibility and execution limits

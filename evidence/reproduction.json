@@ -1,0 +1,39 @@
+{
+  "verified_at": "2026-10-10T11:31:55.566027+00:00",
+  "environment": "Windows; Python 3.12; independent fresh .venv; no model credentials",
+  "clone_revision": "8a015473e5ae177121bdbf7d62fc10272d4f7b5f",
+  "setup_command": "pwsh -NoProfile -File scripts/setup.ps1",
+  "setup_log": "evidence/clean-setup.txt",
+  "mock_status": "success",
+  "mock_wall_latency_ms": 4395.65,
+  "live_status": "success",
+  "live_wall_latency_ms": 13340.95,
+  "live_packet": "evidence/clean-live.json",
+  "mock_packet": "evidence/clean-mock.json",
+  "upstream_worktrees": {
+    "eve-esa/agents": "clean",
+    "eve-esa/backend": "clean",
+    "eve-esa/mcp-tool-registry": "clean",
+    "eve-esa/evalkit": "clean",
+    "a2aproject/a2a-python": "clean",
+    "a2aproject/a2a-samples": "clean",
+    "a2aproject/a2a-inspector": "clean",
+    "YunongDai2005/theone-agent": "clean"
+  },
+  "vendor_hashes_match_in_clone": true,
+  "source_module_hashes": {
+    "src/eve_demo/a2a_client.py": "ca141ac2e736476b0754165665d71bfd56452bc6c4991235bba5c74e3de8e362",
+    "src/eve_demo/agent.py": "ce1ffe91d74018a5a0e6d2a5afb61ce711a9b721f2662c9302890ef7a85661b2",
+    "src/eve_demo/api.py": "c444aa8342f1868d85d3e8d4a30fb1a506da6a96efe97e658090a2d64465f4cd",
+    "src/eve_demo/config.py": "e4c5fb5031a75f4fb53526240c2a535122d834f813127530450089d4fcd4885f",
+    "src/eve_demo/mock_mcp.py": "6ca1d5e71f6f0d7b5559d68d1bc14f7d0d85638d79e2557bcaa49da798c17a2c",
+    "src/eve_demo/models.py": "665723c19cac9b805a7a6401f7342548d76fde26dbc6760e7025005f3f8e5420",
+    "src/eve_demo/planner.py": "d20ad1e89da596ac9dc3a462d10afd7db1cad2e163574b33ef2b06a701921558",
+    "src/eve_demo/processes.py": "81ad1fd32c1cec9247c63d3e153d15d0a21602aced961de5485a8cb0f8669538",
+    "src/eve_demo/retrieval.py": "5cf505dc3acc66160b4aa3b2c8264bddb5ee7549364687f71031a9966affa18d",
+    "src/eve_demo/store.py": "9064335c7d31e83615c7c32c57cb9c7219fd8cc2b46870fe4cdc69711b594004",
+    "src/eve_demo/supervisor.py": "3b3e6eab23b31e7e35c4c032f1316c17ae61b881759b83fcdaf7fe243594ba19",
+    "src/eve_demo/__init__.py": "a4deea26bf4cd9a507286ea278b82cb4d71df633e64a45a6a253abc95d7df30d"
+  },
+  "note": "Final documentation/formatting/export updates are later than the clone commit; runtime modules match this record."
+}

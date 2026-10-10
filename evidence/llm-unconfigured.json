@@ -1,0 +1,114 @@
+{
+  "job": {
+    "task_id": "84bcddcc-e59a-4210-a456-46db9d9f7a51",
+    "thread_id": "84bcddcc-e59a-4210-a456-46db9d9f7a51",
+    "status": "failed",
+    "request": {
+      "query": "Find a recent flood event reported by GDACS, identify relevant Earth Observation data resources, and explain how they could support flood monitoring.",
+      "mode": "mock",
+      "planner": "llm",
+      "fault": "none"
+    },
+    "result": {
+      "request_id": "84bcddcc-e59a-4210-a456-46db9d9f7a51",
+      "mode": "mock",
+      "planner": "llm",
+      "status": "failed",
+      "plan": {
+        "accepted": false,
+        "calls": [],
+        "rationale": "Planning failed",
+        "planner": "llm"
+      },
+      "a2a_task_id": null,
+      "a2a_state": null,
+      "retrieved_events": [],
+      "candidate_eo_resources": [],
+      "sources": [],
+      "analysis_suggestions": [],
+      "limitations": [
+        "Catalogue candidates are not verified satellite imagery for any GDACS event.",
+        "Recent means reported end within 30 days; naive GDACS timestamps are assumed UTC.",
+        "Rules planner is limited; enable planner=llm for real model decisions."
+      ],
+      "warnings": [],
+      "error": "RuntimeError",
+      "tool_results": [],
+      "latency_ms": 3625.03,
+      "total_elapsed_ms": 3629.04
+    },
+    "submitted_at": 1791631662.4391963,
+    "deadline_epoch": 1791631782.4391963
+  },
+  "trace": [
+    {
+      "request_id": "84bcddcc-e59a-4210-a456-46db9d9f7a51",
+      "node": "plan",
+      "status": "started",
+      "timestamp": "2026-10-10T11:27:42.450803+00:00",
+      "pid": 413008
+    },
+    {
+      "request_id": "84bcddcc-e59a-4210-a456-46db9d9f7a51",
+      "node": "plan",
+      "status": "failed",
+      "timestamp": "2026-10-10T11:27:46.054094+00:00",
+      "pid": 413008,
+      "error": "RuntimeError"
+    },
+    {
+      "request_id": "84bcddcc-e59a-4210-a456-46db9d9f7a51",
+      "node": "synthesize",
+      "status": "failed",
+      "timestamp": "2026-10-10T11:27:46.061197+00:00",
+      "pid": 413008,
+      "sources": []
+    },
+    {
+      "request_id": "84bcddcc-e59a-4210-a456-46db9d9f7a51",
+      "node": "task",
+      "status": "failed",
+      "timestamp": "2026-10-10T11:27:46.068240+00:00",
+      "pid": 413008,
+      "duration_ms": 3625.03
+    }
+  ],
+  "wall_latency_ms": 4789.78,
+  "agent_card": {
+    "capabilities": {
+      "pushNotifications": false,
+      "streaming": false
+    },
+    "defaultInputModes": [
+      "text/plain"
+    ],
+    "defaultOutputModes": [
+      "application/json"
+    ],
+    "description": "Retrieves GDACS hazards and candidate EO Dashboard collections via official MCP tools.",
+    "name": "EO Retrieval Agent (independent EVE demo)",
+    "preferredTransport": "JSONRPC",
+    "protocolVersion": "0.3.0",
+    "skills": [
+      {
+        "description": "Accepts a JSON delegation plan; returns source-linked evidence artifacts.",
+        "examples": [
+          "{\"request_id\": \"00000000-0000-0000-0000-000000000001\", \"request\": {\"query\": \"Find a recent flood\", \"mode\": \"live\"}, \"plan\": {\"rationale\": \"Search flood hazards\", \"calls\": [{\"server\": \"gdacs\", \"tool\": \"search_gdacs_events\", \"arguments\": {\"eventlist\": \"FL\"}}]}}"
+        ],
+        "id": "eo-retrieval",
+        "name": "Disaster and EO resource retrieval",
+        "tags": [
+          "earth-observation",
+          "gdacs",
+          "mcp"
+        ]
+      }
+    ],
+    "url": "http://127.0.0.1:9171/",
+    "version": "0.1.0"
+  },
+  "graph": {
+    "mermaid": "---\nconfig:\n  flowchart:\n    curve: linear\n---\ngraph TD;\n\t__start__([<p>__start__</p>]):::first\n\tplan(plan)\n\tdelegate(delegate)\n\trecover(recover)\n\tsynthesize(synthesize)\n\t__end__([<p>__end__</p>]):::last\n\t__start__ --> plan;\n\tdelegate -.-> recover;\n\tdelegate -.-> synthesize;\n\tplan -.-> delegate;\n\tplan -.-> synthesize;\n\trecover -.-> delegate;\n\trecover -.-> synthesize;\n\tsynthesize --> __end__;\n\tclassDef default fill:#f2f0ff,line-height:1.2\n\tclassDef first fill-opacity:0\n\tclassDef last fill:#bfb6fc\n"
+  },
+  "request": "Find a recent flood event reported by GDACS, identify relevant Earth Observation data resources, and explain how they could support flood monitoring."
+}

@@ -48,7 +48,8 @@ def main() -> None:
     with Services(9140, 9141) as services:
         live_packet = ROOT / "evidence" / "last-live.json"
         packet = (
-            json.loads(live_packet.read_text(encoding="utf-8")) if live_packet.exists()
+            json.loads(live_packet.read_text(encoding="utf-8"))
+            if live_packet.exists()
             else run_query(services, {"query": "Find flood events", "mode": "mock"}, verbose=False)
         )
         with httpx.Client(trust_env=False) as client:

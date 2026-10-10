@@ -1,0 +1,29 @@
+EVE Delegation Demo | MOCK | planner=rules
+SYNTHETIC DATA. Real LangGraph, cross-process A2A and MCP protocols.
+No-key limited rules router. No real LLM execution is claimed.
+Swagger: http://127.0.0.1:9180/docs | Agent Card: http://127.0.0.1:9181/.well-known/agent-card.json
+
+Request/thread: fb8e11ff-9111-4db5-bd59-71efcff8acec
+  plan                 started       pid=411976
+  plan                 success       2ms pid=411976
+  a2a.discover         success      EO Retrieval Agent (independent EVE demo) pid=411976
+  a2a.delegate         started       pid=411976
+  a2a.agent            working       pid=401668
+  mcp.discover         success       pid=401668
+  mcp.call             started      search_gdacs_events pid=401668
+  mcp.call             success      search_gdacs_events 6ms pid=401668
+  mcp.discover         success       pid=401668
+  mcp.call             started      search_collections pid=401668
+  mcp.call             success      search_collections 6ms pid=401668
+  a2a.agent            success       pid=401668
+  a2a.get_task         completed     3122ms pid=411976
+  synthesize           success       pid=411976
+  task                 success       3175ms pid=411976
+
+RESULT: success | 4.40s
+  EVENT: MOCK synthetic hazard (not a real disaster) | 2026-10-02T00:00:00
+  SOURCE: https://example.invalid/mock-event
+  CANDIDATE (event match unverified): https://example.invalid/mock-collection
+  GUIDANCE: For flood monitoring, compare pre/post-event radar acquisitions to assess inundation; validate acquisition dates, AOI coverage, terrain and processing before interpreting change. Optical data can complement radar when cloud permits.
+
+Full artifacts, raw data, sources and trace: E:\eve-agent-delegation-mvp\evidence\clean-mock.json

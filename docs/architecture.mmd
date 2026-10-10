@@ -1,5 +1,11 @@
+---
+config:
+  flowchart:
+    nodeSpacing: 24
+    rankSpacing: 30
+---
 flowchart LR
-  user[CLI / REST request] --> plan
+  user[CLI / REST request] --> supervisor
   subgraph supervisor[Supervisor process / LangGraph]
     direction TB
     plan[Plan and route] -->|supported| delegate[Delegate task]
@@ -21,8 +27,8 @@ flowchart LR
     disasters --> evidence[Source-linked artifact]
     catalogue --> evidence
   end
-  delegate -->|A2A JSON-RPC| agent
-  evidence -->|A2A DataPart| assemble
+  supervisor -->|A2A JSON-RPC delegation| retrieval
+  retrieval -->|A2A DataPart result| supervisor
   classDef main fill:#e9f2ff,stroke:#2563eb,color:#102a43
   classDef protocol fill:#eefcf3,stroke:#16834a,color:#153b25
   classDef failure fill:#fff2e5,stroke:#c56718,color:#5b3414
