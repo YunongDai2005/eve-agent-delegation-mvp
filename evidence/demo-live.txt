@@ -1,0 +1,30 @@
+EVE Delegation Demo | LIVE | planner=rules
+No-key limited rules router. No real LLM execution is claimed.
+Swagger: http://127.0.0.1:9150/docs | Agent Card: http://127.0.0.1:9151/.well-known/agent-card.json
+
+Request/thread: d81935a8-0421-426b-a2f6-a9f404b31328
+  plan                 started       pid=401048
+  plan                 success       5ms pid=401048
+  a2a.discover         success      EO Retrieval Agent (independent EVE demo) pid=401048
+  a2a.delegate         started       pid=401048
+  a2a.agent            working       pid=411028
+  mcp.discover         success       pid=411028
+  mcp.call             started      search_gdacs_events pid=411028
+  mcp.call             success      search_gdacs_events 5327ms pid=411028
+  mcp.discover         success       pid=411028
+  mcp.call             started      search_collections pid=411028
+  mcp.call             success      search_collections 5080ms pid=411028
+  a2a.agent            success       pid=411028
+  a2a.get_task         completed     14546ms pid=401048
+  synthesize           success       pid=401048
+  task                 success       14585ms pid=401048
+
+RESULT: success | 16.22s
+  EVENT: Flood in India | 2026-10-03T01:00:00
+  SOURCE: https://www.gdacs.org/report.aspx?eventid=1104121&episodeid=18&eventtype=FL
+  EVENT: Flood in China | 2026-09-27T01:00:00
+  SOURCE: https://www.gdacs.org/report.aspx?eventid=1104081&episodeid=20&eventtype=FL
+  CANDIDATE (event match unverified): https://esa-eodashboards.github.io/eodashboard-catalog/trilateral/alos2_floods/collection.json
+  GUIDANCE: For flood monitoring, compare pre/post-event radar acquisitions to assess inundation; validate acquisition dates, AOI coverage, terrain and processing before interpreting change. Optical data can complement radar when cloud permits.
+
+Full artifacts, raw data, sources and trace: E:\eve-agent-delegation-mvp\evidence\last-live.json

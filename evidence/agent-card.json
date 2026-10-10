@@ -1,0 +1,33 @@
+{
+  "capabilities": {
+    "pushNotifications": false,
+    "streaming": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "description": "Retrieves GDACS hazards and candidate EO Dashboard collections via official MCP tools.",
+  "name": "EO Retrieval Agent (independent EVE demo)",
+  "preferredTransport": "JSONRPC",
+  "protocolVersion": "0.3.0",
+  "skills": [
+    {
+      "description": "Accepts a JSON delegation plan; returns source-linked evidence artifacts.",
+      "examples": [
+        "{\"request_id\": \"00000000-0000-0000-0000-000000000001\", \"request\": {\"query\": \"Find a recent flood\", \"mode\": \"live\"}, \"plan\": {\"rationale\": \"Search flood hazards\", \"calls\": [{\"server\": \"gdacs\", \"tool\": \"search_gdacs_events\", \"arguments\": {\"eventlist\": \"FL\"}}]}}"
+      ],
+      "id": "eo-retrieval",
+      "name": "Disaster and EO resource retrieval",
+      "tags": [
+        "earth-observation",
+        "gdacs",
+        "mcp"
+      ]
+    }
+  ],
+  "url": "http://127.0.0.1:9141/",
+  "version": "0.1.0"
+}

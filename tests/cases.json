@@ -1,0 +1,23 @@
+[
+  {"id":"flood-global","query":"Find recent flood events","tools":["search_gdacs_events"],"expected":"success","live":true},
+  {"id":"flood-eo","query":"Find a recent flood and Earth Observation resources for monitoring","tools":["search_gdacs_events","search_collections"],"expected":"success","live":true},
+  {"id":"quake","query":"Find recent earthquake events","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"cyclone","query":"Find cyclone events","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"hurricane","query":"Find hurricane events","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"typhoon","query":"Find typhoon events","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"volcano","query":"Find volcano events","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"wildfire","query":"Find wildfire satellite resources","tools":["search_gdacs_events","search_collections"],"expected":"success"},
+  {"id":"drought","query":"Find drought events","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"tsunami","query":"Find tsunami events","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"red-flood","query":"Find Red flood events","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"country","query":"Find flood events in Bangladesh","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"catalogue","query":"Search water STAC collections","tools":["search_collections"],"expected":"success","live":true},
+  {"id":"sentinel","query":"Find Sentinel satellite resources","tools":["search_collections"],"expected":"success"},
+  {"id":"hazards","query":"Find recent GDACS disasters","tools":["search_gdacs_events"],"expected":"success"},
+  {"id":"out-of-scope","query":"Write a chocolate cake recipe","tools":[],"expected":"rejected"},
+  {"id":"no-data","query":"Find a flood","tools":["search_gdacs_events"],"expected":"no_data","fault":"empty"},
+  {"id":"transient-recovery","query":"Find a flood","tools":["search_gdacs_events"],"expected":"success","fault":"transient"},
+  {"id":"bad-json","query":"Find a flood","tools":["search_gdacs_events"],"expected":"failed","fault":"malformed"},
+  {"id":"permanent-error","query":"Find a flood","tools":["search_gdacs_events"],"expected":"failed","fault":"permanent"},
+  {"id":"timeout","query":"Find a flood","tools":["search_gdacs_events"],"expected":"failed","fault":"timeout"}
+]

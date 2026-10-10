@@ -1,0 +1,36 @@
+flood-global: success | expected=success | pass=True | 4084ms
+flood-eo: success | expected=success | pass=True | 6148ms
+quake: success | expected=success | pass=True | 4284ms
+cyclone: success | expected=success | pass=True | 4302ms
+hurricane: success | expected=success | pass=True | 4064ms
+typhoon: success | expected=success | pass=True | 3941ms
+volcano: success | expected=success | pass=True | 3812ms
+wildfire: success | expected=success | pass=True | 6042ms
+drought: success | expected=success | pass=True | 4661ms
+tsunami: success | expected=success | pass=True | 4476ms
+red-flood: success | expected=success | pass=True | 3790ms
+country: success | expected=success | pass=True | 3663ms
+catalogue: success | expected=success | pass=True | 3498ms
+sentinel: success | expected=success | pass=True | 3481ms
+hazards: success | expected=success | pass=True | 3637ms
+out-of-scope: rejected | expected=rejected | pass=True | 1422ms
+no-data: no_data | expected=no_data | pass=True | 3622ms
+transient-recovery: success | expected=success | pass=True | 3835ms
+bad-json: failed | expected=failed | pass=True | 3925ms
+permanent-error: failed | expected=failed | pass=True | 5258ms
+timeout: failed | expected=failed | pass=True | 4994ms
+{
+  "mode": "mock",
+  "planner": "rules",
+  "timestamp": "2026-10-10T11:21:30.069793+00:00",
+  "cases": 21,
+  "case_expectation_pass_rate": 1.0,
+  "task_success_rate": 0.7619047619047619,
+  "tool_selection_accuracy": 1.0,
+  "a2a_delegation_success_rate": 1.0,
+  "error_recovery_rate": 1.0,
+  "p95_latency_ms": 6042.38,
+  "mean_latency_ms": 4139.909047619048,
+  "limits": "MOCK uses synthetic MCP payloads; LIVE uses official EVE MCP and external APIs. Neither evaluates real LLM planning. Small live samples are not reliability estimates."
+}
+E:\eve-agent-delegation-mvp\evidence\evaluation-mock.json

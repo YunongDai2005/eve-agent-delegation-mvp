@@ -1,0 +1,10 @@
+{
+  "validator_source": "a2aproject/a2a-inspector/backend/validators.py",
+  "revision": "8aa064639af106ff771d60428ef6d460f5454743",
+  "validation_scope": "Official Inspector structural validators, not GUI/full conformance",
+  "packet_remote_task_id": "d901e998-fc90-4137-b64b-f150742fe866",
+  "captured_task_id": "d901e998-fc90-4137-b64b-f150742fe866",
+  "agent_card_errors": [],
+  "task_errors": [],
+  "passed": true
+}

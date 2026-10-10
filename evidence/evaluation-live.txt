@@ -1,0 +1,18 @@
+flood-global: success | expected=success | pass=True | 8931ms
+flood-eo: success | expected=success | pass=True | 16951ms
+catalogue: no_data | expected=success | pass=False | 9525ms
+{
+  "mode": "live",
+  "planner": "rules",
+  "timestamp": "2026-10-10T11:22:00.141358+00:00",
+  "cases": 3,
+  "case_expectation_pass_rate": 0.6666666666666666,
+  "task_success_rate": 0.6666666666666666,
+  "tool_selection_accuracy": 1.0,
+  "a2a_delegation_success_rate": 1.0,
+  "error_recovery_rate": null,
+  "p95_latency_ms": 16951.44,
+  "mean_latency_ms": 11802.576666666666,
+  "limits": "MOCK uses synthetic MCP payloads; LIVE uses official EVE MCP and external APIs. Neither evaluates real LLM planning. Small live samples are not reliability estimates."
+}
+E:\eve-agent-delegation-mvp\evidence\evaluation-live.json

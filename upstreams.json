@@ -1,0 +1,98 @@
+{
+  "research_repositories": [
+    {
+      "repository": "eve-esa/agents",
+      "url": "https://github.com/eve-esa/agents",
+      "revision": "d993305789b2670fbe7a1d9059fc1260df901159",
+      "license": "Apache-2.0",
+      "inspected_files": [
+        "agents/graphs/react/graph.py",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "repository": "eve-esa/backend",
+      "url": "https://github.com/eve-esa/backend",
+      "revision": "422b5540852165bd2cf15b69c2ec1b84a863420f",
+      "license": "Apache-2.0",
+      "inspected_files": [
+        "src/services/agents/core/runner.py",
+        "src/services/mcp/tool_loader.py"
+      ]
+    },
+    {
+      "repository": "eve-esa/mcp-tool-registry",
+      "url": "https://github.com/eve-esa/mcp-tool-registry",
+      "revision": "69bfcde7f80b1fc50ebd31001b56ce257c500f27",
+      "license": "Apache-2.0",
+      "inspected_files": [
+        "servers/gdacs/server.py",
+        "servers/eodashboard/server.py",
+        "servers/geocode/server.py"
+      ]
+    },
+    {
+      "repository": "eve-esa/evalkit",
+      "url": "https://github.com/eve-esa/evalkit",
+      "revision": "934c1c617cfe43d6b7639d812b01efe962151ffc",
+      "license": "Apache-2.0",
+      "inspected_files": [
+        "evaluate.py",
+        "tasks/eo_summarization/utils_sum.py"
+      ]
+    },
+    {
+      "repository": "a2aproject/a2a-python",
+      "url": "https://github.com/a2aproject/a2a-python",
+      "revision": "494a8ece0ad9815afd8ebd59e9a818e286eb0d80",
+      "license": "Apache-2.0",
+      "inspected_files": [
+        "src/a2a/client/client.py",
+        "src/a2a/server/tasks/task_updater.py"
+      ]
+    },
+    {
+      "repository": "a2aproject/a2a-samples",
+      "url": "https://github.com/a2aproject/a2a-samples",
+      "revision": "6603ba3f2c31a7ef33e70b9d8b5b5f8be42ac9a3",
+      "license": "Apache-2.0",
+      "inspected_files": [
+        "samples/python/agents/helloworld/agent_executor.py",
+        "samples/python/agents/helloworld/__main__.py"
+      ]
+    },
+    {
+      "repository": "a2aproject/a2a-inspector",
+      "url": "https://github.com/a2aproject/a2a-inspector",
+      "revision": "8aa064639af106ff771d60428ef6d460f5454743",
+      "license": "Apache-2.0",
+      "inspected_files": [
+        "backend/validators.py"
+      ]
+    },
+    {
+      "repository": "YunongDai2005/theone-agent",
+      "url": "https://github.com/YunongDai2005/theone-agent",
+      "revision": "09e9d393dffe04d90d287bece51074891584749b",
+      "license": "MIT",
+      "inspected_files": [
+        "threads.mjs",
+        "topic-tools.mjs"
+      ]
+    }
+  ],
+  "runtime_sdk_release": "a2a-sdk 0.3.25; A2A JSON-RPC 0.3.0",
+  "vendored_registry_revision": "69bfcde7f80b1fc50ebd31001b56ce257c500f27",
+  "unmodified_snapshots": [
+    {
+      "file": "vendor/eve/gdacs/server.py",
+      "upstream_file": "servers/gdacs/server.py",
+      "sha256": "aa9596bbef24e97163a34e205fd0bf17fdab90b6de558ea90107bcf4e2e60061"
+    },
+    {
+      "file": "vendor/eve/eodashboard/server.py",
+      "upstream_file": "servers/eodashboard/server.py",
+      "sha256": "fb3e717ce0ff7cb642134b926e71e318cf6b7b811806da9656b71bd5e9c386ce"
+    }
+  ]
+}

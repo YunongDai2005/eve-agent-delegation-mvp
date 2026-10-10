@@ -1,0 +1,31 @@
+flowchart LR
+  user[CLI / REST request] --> plan
+  subgraph supervisor[Supervisor process / LangGraph]
+    direction TB
+    plan[Plan and route] -->|supported| delegate[Delegate task]
+    plan -->|unsupported| assemble[Assemble evidence]
+    delegate -->|transport failure| recovery[Bounded recovery]
+    recovery -->|one retry| delegate
+    recovery -->|exhausted| assemble
+    assemble --> result[Result and trace]
+    plan -.-> sqlite[(SQLite checkpoints)]
+    delegate -.-> sqlite
+    assemble -.-> sqlite
+  end
+  subgraph retrieval[Independent Retrieval process / A2A SDK]
+    direction TB
+    agent[Accept remote task] -->|MCP stdio| gdacs[Official EVE GDACS tool]
+    agent -->|MCP stdio| eo[Official EVE EO catalogue tool]
+    gdacs --> disasters[GDACS API]
+    eo --> catalogue[ESA / NASA / JAXA STAC]
+    disasters --> evidence[Source-linked artifact]
+    catalogue --> evidence
+  end
+  delegate -->|A2A JSON-RPC| agent
+  evidence -->|A2A DataPart| assemble
+  classDef main fill:#e9f2ff,stroke:#2563eb,color:#102a43
+  classDef protocol fill:#eefcf3,stroke:#16834a,color:#153b25
+  classDef failure fill:#fff2e5,stroke:#c56718,color:#5b3414
+  class plan,delegate,assemble,result main
+  class agent,gdacs,eo protocol
+  class recovery failure

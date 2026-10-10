@@ -1,0 +1,367 @@
+[
+  {
+    "server": "gdacs",
+    "tools": [
+      {
+        "name": "search_gdacs_events",
+        "title": null,
+        "description": "Search GDACS for ongoing or recent natural disaster events worldwide.\n\n    Use this when the user asks about current or recent disasters, hazards,\n    or emergencies \u2014 e.g. \"any active volcanoes right now\", \"is there\n    flooding in Bangladesh\", \"recent earthquakes near Japan\". The data comes\n    from the Global Disaster Alert and Coordination System (GDACS) and is\n    not limited to any one country.\n\n    Args:\n    eventlist: The type of hazard to search for. One of:\n        - \"EQ\": seismic events\n        - \"FL\": river/flash flooding\n        - \"VO\": volcanic eruptions or unrest\n        - \"WF\": forest/bush fires\n        - \"DR\": prolonged water shortage events\n        - \"TC\": hurricanes, typhoons, cyclones\n        - \"TS\": tsunami warnings/events\n        Leave unset to return any/all categories of hazard.\n    alertlevel: Optional severity filter. \"Green\" = low impact,\n        \"Orange\" = medium impact, \"Red\" = high impact/major disaster.\n        Leave unset to return events of any severity.\n    country: Optional country name to restrict results to\n        (e.g. \"Philippines\"). Leave unset to search globally.\n\n    Returns:\n        JSON string with matching events, including event name, country,\n        alert level, coordinates, and event date range.\n    ",
+        "inputSchema": {
+          "properties": {
+            "eventlist": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "EQ",
+                    "TC",
+                    "FL",
+                    "VO",
+                    "WF",
+                    "DR",
+                    "TS"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Eventlist"
+            },
+            "alertlevel": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Green",
+                    "Orange",
+                    "Red"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Alertlevel"
+            },
+            "country": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Country"
+            }
+          },
+          "title": "search_gdacs_eventsArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "search_gdacs_eventsOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      }
+    ]
+  },
+  {
+    "server": "eodashboard",
+    "tools": [
+      {
+        "name": "list_narratives",
+        "title": null,
+        "description": "Get a list of all available EODashboard narratives.",
+        "inputSchema": {
+          "properties": {},
+          "title": "list_narrativesArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "list_narrativesOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      },
+      {
+        "name": "search_narratives",
+        "title": null,
+        "description": "Search narratives by keyword in title or theme.",
+        "inputSchema": {
+          "properties": {
+            "keyword": {
+              "title": "Keyword",
+              "type": "string"
+            }
+          },
+          "required": [
+            "keyword"
+          ],
+          "title": "search_narrativesArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "search_narrativesOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      },
+      {
+        "name": "get_narrative_content",
+        "title": null,
+        "description": "Get the full content of a specific narrative by its URL.",
+        "inputSchema": {
+          "properties": {
+            "url": {
+              "title": "Url",
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "get_narrative_contentArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "get_narrative_contentOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      },
+      {
+        "name": "list_themes",
+        "title": null,
+        "description": "Get all available themes from narratives.",
+        "inputSchema": {
+          "properties": {},
+          "title": "list_themesArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "list_themesOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      },
+      {
+        "name": "get_narrative_indicators",
+        "title": null,
+        "description": "Get collection codes referenced in a narrative.",
+        "inputSchema": {
+          "properties": {
+            "narrative_title": {
+              "title": "Narrative Title",
+              "type": "string"
+            }
+          },
+          "required": [
+            "narrative_title"
+          ],
+          "title": "get_narrative_indicatorsArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "get_narrative_indicatorsOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      },
+      {
+        "name": "search_collections",
+        "title": null,
+        "description": "Search STAC collections by code, theme, or keyword.",
+        "inputSchema": {
+          "properties": {
+            "code": {
+              "default": "",
+              "title": "Code",
+              "type": "string"
+            },
+            "theme": {
+              "default": "",
+              "title": "Theme",
+              "type": "string"
+            },
+            "keyword": {
+              "default": "",
+              "title": "Keyword",
+              "type": "string"
+            }
+          },
+          "title": "search_collectionsArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "search_collectionsOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      },
+      {
+        "name": "get_collection_items",
+        "title": null,
+        "description": "Get data items from a specific STAC collection.",
+        "inputSchema": {
+          "properties": {
+            "collection_code": {
+              "title": "Collection Code",
+              "type": "string"
+            },
+            "limit": {
+              "default": 10,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "collection_code"
+          ],
+          "title": "get_collection_itemsArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "get_collection_itemsOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      },
+      {
+        "name": "find_narratives_for_indicator",
+        "title": null,
+        "description": "Reverse lookup narratives that reference a collection code.",
+        "inputSchema": {
+          "properties": {
+            "indicator_code": {
+              "title": "Indicator Code",
+              "type": "string"
+            }
+          },
+          "required": [
+            "indicator_code"
+          ],
+          "title": "find_narratives_for_indicatorArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "find_narratives_for_indicatorOutput",
+          "type": "object"
+        },
+        "icons": null,
+        "annotations": null,
+        "meta": null,
+        "execution": null
+      }
+    ]
+  }
+]
