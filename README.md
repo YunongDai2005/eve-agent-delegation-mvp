@@ -11,6 +11,9 @@ Separate **DeepSeek-V4.1-Flash** verification: real LLM planning passed 4/4 smal
 cases; a full LLM + live-data demo succeeded in **21.69s**.
 [Raw live run](evidence/last-live.json) · [Evaluation](docs/evaluation.md) · [Inspector check](evidence/inspector-validation.json)
 
+[One-page project brief (PDF)](output/pdf/EVE-Project-Brief.pdf) summarizes the architecture,
+recorded results and evidence links for a quick review.
+
 ```powershell
 git clone https://github.com/YunongDai2005/eve-agent-delegation-mvp.git
 cd eve-agent-delegation-mvp
