@@ -12,6 +12,8 @@ cases; a full LLM + live-data demo succeeded in **21.69s**.
 [Raw live run](evidence/last-live.json) · [Evaluation](docs/evaluation.md) · [Inspector check](evidence/inspector-validation.json)
 
 ```powershell
+git clone https://github.com/YunongDai2005/eve-agent-delegation-mvp.git
+cd eve-agent-delegation-mvp
 pwsh -File scripts/setup.ps1
 .\.venv\Scripts\python.exe demo.py --mode live  # no key required; explicitly labelled rules planner
 .\.venv\Scripts\python.exe demo.py --mode mock  # synthetic data, real A2A/MCP transports

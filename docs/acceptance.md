@@ -16,12 +16,12 @@ verification. This is independent work, not an ESA release.
 | Automated tests with actual run records | Passed | 27/27 pytest, 21/21 fixture case expectations, separate 2/3 live data success |
 | README reproduction | Passed locally | Independent project, lock/setup scripts; clean-checkout verification record |
 | Architecture matches code | Passed | Compiled graph export; actual A2A/MCP process boundaries; Mermaid SVG export |
+| Public GitHub repository | Published | [Source, documentation and evidence](https://github.com/YunongDai2005/eve-agent-delegation-mvp) |
 
 ## Explicitly incomplete or unmeasured
 
 - General LLM quality: unmeasured. Four real-planning fixture cases and one corrected successful
   live demo are integration checks; rules metrics are not LLM metrics.
-- GitHub publication: local repository prepared; no remote upload is claimed.
 - Full Inspector UI/conformance suite: original structural validators were exercised only.
 - Live outage recovery statistics: not measured. Mock transient recovery is separately labelled.
 - Cross-platform setup: only Windows/Python 3.12 was verified.
