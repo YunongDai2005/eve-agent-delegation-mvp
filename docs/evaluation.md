@@ -1,8 +1,8 @@
 # Evaluation — actual runs, separate evidence classes
 
 Environment: Windows, Python 3.12, locked dependencies. Run date: **2026-10-10 (Asia/Shanghai)**.
-All reported planning uses the explicitly labelled **rules** router. Real LLM planning was
-not exercised and no model decision quality is inferred from these results.
+The original metrics below use the explicitly labelled **rules** router. Separate real
+DeepSeek-V4.1-Flash verification is recorded in its own section and evidence files.
 
 ## End-to-end metrics
 
@@ -75,6 +75,37 @@ temporally matched to either event. The full upstream GeoJSON is preserved in `r
   path only, not real model behavior.
 - Ruff, formatting, mypy and `pip check` records are in `evidence/checks.txt`.
 
+## Separate real LLM verification
+
+Provider: `https://api.deepseek.com`, model `deepseek-flash`, identified by the authenticated
+model listing as **DeepSeek-V4.1-Flash**. [Safe metadata](../evidence/llm-provider.json).
+The temporary credential was removed after testing and is absent from package files.
+
+- Initial full LLM/live run: **partial**, 33.23 s. GDACS returned real flood reports, but the
+  model guessed `theme=Emergency` and used `keyword=flood monitoring`; the upstream catalogue
+  uses exact theme membership and literal keyword substrings combined with AND. Both EO calls
+  returned no data. [Original packet](../evidence/llm-live-deepseek.json) remains preserved.
+- The planner prompt was corrected using the inspected upstream implementation: short English
+  keywords; no guessed themes/codes; one relevant broad search unless distinct searches are asked.
+  No returned evidence was hardcoded and no upstream source was changed.
+- Corrected full LLM/live run: **success**, 21.69 s request-to-terminal, including 9.170 s model
+  planning. It selected GDACS `eventlist=FL` and EO Dashboard `keyword=flood`, returning India
+  and China flood reports plus the `alos2_floods` collection candidate.
+  [Packet](../evidence/llm-live-deepseek-corrected.json),
+  [terminal](../evidence/llm-live-deepseek-corrected.txt).
+- Four cases with **real provider planning and synthetic MCP retrieval**: 4/4 expectations,
+  4/4 tool selections, 3/3 eligible A2A round trips. Tasks: three `success`, one expected
+  `rejected`. Chinese country/hazard/alert filters were checked explicitly. Mean 6.885 s,
+  P95 12.255 s (n=4). [Cases](../tests/llm-cases.json),
+  [full packets](../evidence/evaluation-mock-llm.json),
+  [console](../evidence/evaluation-mock-llm.txt).
+
+These samples establish integration and the listed behaviors only. Both live attempts are
+reported; neither is added to the original rules denominator. The first failure informed the
+prompt change, so these runs are not an independent held-out accuracy benchmark. No model
+outage recovery rate, imagery matching, general multilingual coverage or model-quality score
+is claimed. The monitoring guidance remains deterministic; the LLM only produces the plan.
+
 ## Known compatibility and execution limits
 
 The first resolver attempt rejected checkpoint-sqlite 3.0.1 with LangGraph 1.2.14; 3.1.1 is
@@ -87,8 +118,8 @@ cleanup because a Windows MCP descendant still held an inherited log handle. The
 now cleans up only its owned process tree; the reported rerun exited successfully. This
 initial run is not counted as the published evaluation result.
 
-No model credentials were supplied. The optional real planner is implemented but requires
-provider-backed verification. No CDSE OAuth, imagery download, acquisition matching, EO image
+Real planning was verified only with the provider/sample described above.
+No CDSE OAuth, imagery download, acquisition matching, EO image
 processing, geocoding, model benchmarking/evalkit scores, or large-scale deployment is claimed.
 The selected tools/filters are evaluated on a small English rules-router suite, not arbitrary
 natural language. No live transient recovery rate is available: a no-data response is not a

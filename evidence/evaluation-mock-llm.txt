@@ -1,0 +1,20 @@
+llm-flood-eo: success | expected=success | pass=True | 12255ms
+llm-chinese-filters: success | expected=success | pass=True | 8409ms
+llm-catalogue-only: success | expected=success | pass=True | 5099ms
+llm-out-of-scope: rejected | expected=rejected | pass=True | 1777ms
+{
+  "mode": "mock",
+  "planner": "llm",
+  "model": "deepseek-flash",
+  "timestamp": "2026-10-10T11:40:35.797233+00:00",
+  "cases": 4,
+  "case_expectation_pass_rate": 1.0,
+  "task_success_rate": 0.75,
+  "tool_selection_accuracy": 1.0,
+  "a2a_delegation_success_rate": 1.0,
+  "error_recovery_rate": null,
+  "p95_latency_ms": 12254.65,
+  "mean_latency_ms": 6884.8825,
+  "limits": "MOCK uses synthetic MCP payloads; LIVE uses official EVE MCP and external APIs. LLM planning requires an external provider even in mock mode. Small samples are not reliability or general model-quality estimates."
+}
+E:\eve-agent-delegation-mvp\evidence\evaluation-mock-llm.json

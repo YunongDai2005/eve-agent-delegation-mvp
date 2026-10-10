@@ -3,6 +3,7 @@
 import argparse
 import json
 import math
+import os
 import sys
 import tempfile
 from datetime import datetime, timezone
@@ -17,15 +18,20 @@ from eve_demo.processes import Services  # noqa: E402
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", choices=["mock", "live"], default="mock")
+    parser.add_argument("--planner", choices=["rules", "llm"], default="rules")
+    parser.add_argument("--cases", type=Path, default=ROOT / "tests" / "cases.json")
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--api-port", type=int)
     parser.add_argument("--agent-port", type=int)
     args = parser.parse_args()
-    cases = json.loads((ROOT / "tests" / "cases.json").read_text())
+    cases = json.loads(args.cases.read_text(encoding="utf-8"))
     if args.mode == "live":
         cases = [c for c in cases if c.get("live")]
     if args.limit:
         cases = cases[: args.limit]
+    if not cases:
+        parser.error("No evaluation cases selected")
     rows = []
     with tempfile.TemporaryDirectory(prefix="eve-eval-") as directory:
         api_port = args.api_port or (9120 if args.mode == "mock" else 9160)
@@ -35,6 +41,7 @@ def main() -> None:
                 payload = {
                     "query": case["query"],
                     "mode": args.mode,
+                    "planner": args.planner,
                     "fault": case.get("fault", "none") if args.mode == "mock" else "none",
                 }
                 packet = run_query(services, payload, verbose=False)
@@ -43,7 +50,23 @@ def main() -> None:
                 selected = [c["tool"] for c in result.get("plan", {}).get("calls", [])]
                 protocol_ok = any(e["node"] == "a2a.get_task" for e in events)
                 expected = case["expected"] if args.mode == "mock" else "success"
-                passed = result["status"] == expected and sorted(selected) == sorted(case["tools"])
+                calls = result.get("plan", {}).get("calls", [])
+                filters_ok = all(
+                    any(
+                        call["tool"] == constraint["tool"]
+                        and all(
+                            call["arguments"].get(key) == value
+                            for key, value in constraint["arguments"].items()
+                        )
+                        for call in calls
+                    )
+                    for constraint in case.get("required_filters", [])
+                )
+                passed = (
+                    result["status"] == expected
+                    and sorted(selected) == sorted(case["tools"])
+                    and filters_ok
+                )
                 recovery = any(e["node"] in {"mcp.retry", "recover"} for e in events)
                 row = {
                     "id": case["id"],
@@ -52,6 +75,7 @@ def main() -> None:
                     "observed": result["status"],
                     "passed": passed,
                     "tool_selection_correct": sorted(selected) == sorted(case["tools"]),
+                    "required_filters_correct": filters_ok,
                     "delegation_eligible": bool(case["tools"]),
                     "a2a_success": protocol_ok,
                     "recovered": recovery and result["status"] == "success",
@@ -71,22 +95,27 @@ def main() -> None:
     ]
     summary = {
         "mode": args.mode,
-        "planner": "rules",
+        "planner": args.planner,
+        "model": os.getenv("OPENAI_MODEL") if args.planner == "llm" else None,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "cases": len(rows),
         "case_expectation_pass_rate": sum(r["passed"] for r in rows) / len(rows),
         "task_success_rate": sum(r["observed"] == "success" for r in rows) / len(rows),
         "tool_selection_accuracy": sum(r["tool_selection_correct"] for r in rows) / len(rows),
-        "a2a_delegation_success_rate": sum(r["a2a_success"] for r in eligible) / len(eligible),
+        "a2a_delegation_success_rate": sum(r["a2a_success"] for r in eligible) / len(eligible)
+        if eligible
+        else None,
         "error_recovery_rate": sum(r["recovered"] for r in transient) / len(transient)
         if transient
         else None,
         "p95_latency_ms": latencies[math.ceil(0.95 * len(latencies)) - 1],
         "mean_latency_ms": sum(latencies) / len(latencies),
         "limits": "MOCK uses synthetic MCP payloads; LIVE uses official EVE MCP and external APIs. "
-        "Neither evaluates real LLM planning. Small live samples are not reliability estimates.",
+        "LLM planning requires an external provider even in mock mode. "
+        "Small samples are not reliability or general model-quality estimates.",
     }
-    output = ROOT / "evidence" / f"evaluation-{args.mode}.json"
+    suffix = "-llm" if args.planner == "llm" else ""
+    output = args.output or ROOT / "evidence" / f"evaluation-{args.mode}{suffix}.json"
     output.write_text(json.dumps({"summary": summary, "runs": rows}, indent=2), encoding="utf-8")
     print(json.dumps(summary, indent=2))
     print(output)

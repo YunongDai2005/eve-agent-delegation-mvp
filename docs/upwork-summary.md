@@ -9,8 +9,8 @@ GDACS disaster events and the ESA/NASA/JAXA EO Dashboard catalogue.
 The recorded live demonstration completed in approximately 16 seconds and returned source-linked
 flood evidence plus a candidate EO collection. Results distinguish retrieved facts, catalogue
 candidates, and monitoring guidance; they do not claim verified satellite imagery for an event.
-The default no-key workflow uses a clearly labelled rules planner. An optional real-model
-planning interface is implemented, with provider validation still pending.
+The default no-key workflow uses a clearly labelled rules planner. DeepSeek-V4.1-Flash planning
+was separately verified through the complete live chain and four small planning cases.
 
 SQLite checkpoints support supervisor recovery, while structured traces expose delegation,
 tool calls, timings, failures, and sources. Twenty-seven automated tests passed. Twenty-one

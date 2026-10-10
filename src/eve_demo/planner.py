@@ -71,6 +71,12 @@ async def llm_plan(query: str) -> Plan:
                     + " Use only gdacs/search_gdacs_events (eventlist EQ TC FL VO WF DR TS, "
                     "country, alertlevel Green Orange Red) and eodashboard/search_collections "
                     "(keyword, theme, code). Reject unrelated requests. Do not invent data. "
+                    "EO keyword search is a literal substring of title/description, not semantic "
+                    "search: use a short English topic such as flood, translated if necessary. "
+                    "Multiple filters are combined with AND. Theme requires an existing exact "
+                    "catalogue theme, code an existing exact collection code; omit them unless "
+                    "explicitly known from the request. Do not guess themes/codes. Prefer one "
+                    "broad relevant search per server unless distinct searches are requested. "
                     "Choose tools and filters from the request. Maximum four calls. planner=llm."
                 )
             ),

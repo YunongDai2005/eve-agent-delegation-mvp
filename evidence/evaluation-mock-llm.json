@@ -1,0 +1,950 @@
+{
+  "summary": {
+    "mode": "mock",
+    "planner": "llm",
+    "model": "deepseek-flash",
+    "timestamp": "2026-10-10T11:40:35.797233+00:00",
+    "cases": 4,
+    "case_expectation_pass_rate": 1.0,
+    "task_success_rate": 0.75,
+    "tool_selection_accuracy": 1.0,
+    "a2a_delegation_success_rate": 1.0,
+    "error_recovery_rate": null,
+    "p95_latency_ms": 12254.65,
+    "mean_latency_ms": 6884.8825,
+    "limits": "MOCK uses synthetic MCP payloads; LIVE uses official EVE MCP and external APIs. LLM planning requires an external provider even in mock mode. Small samples are not reliability or general model-quality estimates."
+  },
+  "runs": [
+    {
+      "id": "llm-flood-eo",
+      "query": "Find a recent flood and Earth Observation resources for monitoring",
+      "expected": "success",
+      "observed": "success",
+      "passed": true,
+      "tool_selection_correct": true,
+      "required_filters_correct": true,
+      "delegation_eligible": true,
+      "a2a_success": true,
+      "recovered": false,
+      "latency_ms": 12254.65,
+      "packet": {
+        "job": {
+          "task_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+          "thread_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+          "status": "success",
+          "request": {
+            "query": "Find a recent flood and Earth Observation resources for monitoring",
+            "mode": "mock",
+            "planner": "llm",
+            "fault": "none"
+          },
+          "result": {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "mode": "mock",
+            "planner": "llm",
+            "status": "success",
+            "plan": {
+              "accepted": true,
+              "rationale": "The request asks for a recent flood and EO resources for monitoring. Use GDACS to search recent flood events with eventlist FL. Use EO Dashboard collection search with the short English topic keyword 'flood' to find relevant Earth Observation resources. Country, alert level, theme, and code are not specified, so omit them rather than guessing.",
+              "calls": [
+                {
+                  "server": "gdacs",
+                  "tool": "search_gdacs_events",
+                  "arguments": {
+                    "eventlist": "FL"
+                  }
+                },
+                {
+                  "server": "eodashboard",
+                  "tool": "search_collections",
+                  "arguments": {
+                    "keyword": "flood"
+                  }
+                }
+              ],
+              "planner": "llm"
+            },
+            "a2a_task_id": "1e59f5cc-8b0f-4b92-a938-412e91191659",
+            "a2a_state": "completed",
+            "retrieved_events": [
+              {
+                "kind": "retrieved_event",
+                "properties": {
+                  "name": "MOCK synthetic hazard (not a real disaster)",
+                  "eventtype": "FL",
+                  "country": "Mockland",
+                  "alertlevel": "Orange",
+                  "fromdate": "2026-10-01T00:00:00",
+                  "todate": "2026-10-02T00:00:00",
+                  "url": "https://example.invalid/mock-event"
+                },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    90.4,
+                    23.7
+                  ]
+                },
+                "source_url": "https://example.invalid/mock-event",
+                "date_claim": "Dates are the upstream event dates; recency is not guaranteed",
+                "age_days_from_reported_end": 8.5,
+                "within_30_days": true
+              }
+            ],
+            "candidate_eo_resources": [
+              {
+                "kind": "candidate_eo_resource",
+                "source_url": "https://example.invalid/mock-collection",
+                "event_match_verified": false
+              }
+            ],
+            "sources": [
+              "https://example.invalid/mock-event",
+              "https://example.invalid/mock-collection"
+            ],
+            "analysis_suggestions": [
+              {
+                "kind": "general_guidance_not_retrieved_evidence",
+                "text": "For flood monitoring, compare pre/post-event radar acquisitions to assess inundation; validate acquisition dates, AOI coverage, terrain and processing before interpreting change. Optical data can complement radar when cloud permits."
+              }
+            ],
+            "limitations": [
+              "Catalogue candidates are not verified satellite imagery for any GDACS event.",
+              "Recent means reported end within 30 days; naive GDACS timestamps are assumed UTC.",
+              "Rules planner is limited; enable planner=llm for real model decisions."
+            ],
+            "warnings": [],
+            "error": null,
+            "tool_results": [
+              {
+                "server": "gdacs",
+                "tool": "search_gdacs_events",
+                "arguments": {
+                  "eventlist": "FL"
+                },
+                "status": "success",
+                "records": [
+                  {
+                    "kind": "retrieved_event",
+                    "properties": {
+                      "name": "MOCK synthetic hazard (not a real disaster)",
+                      "eventtype": "FL",
+                      "country": "Mockland",
+                      "alertlevel": "Orange",
+                      "fromdate": "2026-10-01T00:00:00",
+                      "todate": "2026-10-02T00:00:00",
+                      "url": "https://example.invalid/mock-event"
+                    },
+                    "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                        90.4,
+                        23.7
+                      ]
+                    },
+                    "source_url": "https://example.invalid/mock-event",
+                    "date_claim": "Dates are the upstream event dates; recency is not guaranteed",
+                    "age_days_from_reported_end": 8.5,
+                    "within_30_days": true
+                  }
+                ],
+                "raw_output": "{\"type\": \"FeatureCollection\", \"features\": [{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [90.4, 23.7]}, \"properties\": {\"name\": \"MOCK synthetic hazard (not a real disaster)\", \"eventtype\": \"FL\", \"country\": \"Mockland\", \"alertlevel\": \"Orange\", \"fromdate\": \"2026-10-01T00:00:00\", \"todate\": \"2026-10-02T00:00:00\", \"url\": \"https://example.invalid/mock-event\"}}]}",
+                "source_url": "https://example.invalid/mock-source",
+                "retrieved_at": "2026-10-10T11:40:17.733300+00:00",
+                "attempts": 1,
+                "date_policy": "recent: end date within 30 days; naive dates assumed UTC"
+              },
+              {
+                "server": "eodashboard",
+                "tool": "search_collections",
+                "arguments": {
+                  "keyword": "flood"
+                },
+                "status": "success",
+                "records": [
+                  {
+                    "kind": "candidate_eo_resource",
+                    "source_url": "https://example.invalid/mock-collection",
+                    "event_match_verified": false
+                  }
+                ],
+                "raw_output": "Found 1 collection(s):\n\n   MOCK-WATER\n   Title: MOCK flood water resource\n   Themes: water\n   Satellite: MOCK-SAR\n   URL: https://example.invalid/mock-collection\n",
+                "source_url": "https://example.invalid/mock-source",
+                "retrieved_at": "2026-10-10T11:40:18.542127+00:00",
+                "attempts": 1,
+                "date_policy": "recent: end date within 30 days; naive dates assumed UTC"
+              }
+            ],
+            "latency_ms": 11132.3,
+            "total_elapsed_ms": 11135.31
+          },
+          "submitted_at": 1791632407.5922306,
+          "deadline_epoch": 1791632527.5922306
+        },
+        "trace": [
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "plan",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:07.605397+00:00",
+            "pid": 411492
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "plan",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:15.815330+00:00",
+            "pid": 411492,
+            "planner": "llm",
+            "accepted": true,
+            "tools": [
+              "search_gdacs_events",
+              "search_collections"
+            ],
+            "duration_ms": 8210.08
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "a2a.discover",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:16.941018+00:00",
+            "pid": 411492,
+            "agent": "EO Retrieval Agent (independent EVE demo)",
+            "url": "http://127.0.0.1:9211/"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "a2a.delegate",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:16.944063+00:00",
+            "pid": 411492,
+            "agent_url": "http://127.0.0.1:9211",
+            "tools": [
+              "search_gdacs_events",
+              "search_collections"
+            ]
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "a2a.agent",
+            "status": "working",
+            "timestamp": "2026-10-10T11:40:16.947088+00:00",
+            "pid": 412028,
+            "a2a_task_id": "1e59f5cc-8b0f-4b92-a938-412e91191659",
+            "mode": "mock"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "mcp.discover",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:17.723157+00:00",
+            "pid": 412028,
+            "server": "gdacs",
+            "tools": [
+              "search_gdacs_events",
+              "search_collections"
+            ],
+            "mode": "mock"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "mcp.call",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:17.724681+00:00",
+            "pid": 412028,
+            "server": "gdacs",
+            "tool": "search_gdacs_events",
+            "arguments": {
+              "eventlist": "FL"
+            },
+            "attempt": 1,
+            "mode": "mock"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "mcp.call",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:17.733300+00:00",
+            "pid": 412028,
+            "server": "gdacs",
+            "tool": "search_gdacs_events",
+            "attempt": 1,
+            "duration_ms": 8.83,
+            "sources": [
+              "https://example.invalid/mock-event"
+            ],
+            "mode": "mock"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "mcp.discover",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:18.533565+00:00",
+            "pid": 412028,
+            "server": "eodashboard",
+            "tools": [
+              "search_gdacs_events",
+              "search_collections"
+            ],
+            "mode": "mock"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "mcp.call",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:18.536581+00:00",
+            "pid": 412028,
+            "server": "eodashboard",
+            "tool": "search_collections",
+            "arguments": {
+              "keyword": "[REDACTED]"
+            },
+            "attempt": 1,
+            "mode": "mock"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "mcp.call",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:18.542127+00:00",
+            "pid": 412028,
+            "server": "eodashboard",
+            "tool": "search_collections",
+            "attempt": 1,
+            "duration_ms": 5.74,
+            "sources": [
+              "https://example.invalid/mock-collection"
+            ],
+            "mode": "mock"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "a2a.agent",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:18.705271+00:00",
+            "pid": 412028,
+            "a2a_task_id": "1e59f5cc-8b0f-4b92-a938-412e91191659"
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "a2a.get_task",
+            "status": "completed",
+            "timestamp": "2026-10-10T11:40:18.716928+00:00",
+            "pid": 411492,
+            "a2a_task_id": "1e59f5cc-8b0f-4b92-a938-412e91191659",
+            "duration_ms": 2893.99
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "synthesize",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:18.719940+00:00",
+            "pid": 411492,
+            "sources": [
+              "https://example.invalid/mock-event",
+              "https://example.invalid/mock-collection"
+            ]
+          },
+          {
+            "request_id": "a0458c7d-4249-4133-9644-0357977cf7c4",
+            "node": "task",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:18.727537+00:00",
+            "pid": 411492,
+            "duration_ms": 11132.3
+          }
+        ],
+        "wall_latency_ms": 12254.65
+      }
+    },
+    {
+      "id": "llm-chinese-filters",
+      "query": "\u67e5\u8be2\u4e2d\u56fd\u7684\u7ea2\u8272\u9884\u8b66\u6d2a\u6c34\u4e8b\u4ef6\u3002",
+      "expected": "success",
+      "observed": "success",
+      "passed": true,
+      "tool_selection_correct": true,
+      "required_filters_correct": true,
+      "delegation_eligible": true,
+      "a2a_success": true,
+      "recovered": false,
+      "latency_ms": 8409.29,
+      "packet": {
+        "job": {
+          "task_id": "e74151f8-001b-4939-892a-3ed468a93193",
+          "thread_id": "e74151f8-001b-4939-892a-3ed468a93193",
+          "status": "success",
+          "request": {
+            "query": "\u67e5\u8be2\u4e2d\u56fd\u7684\u7ea2\u8272\u9884\u8b66\u6d2a\u6c34\u4e8b\u4ef6\u3002",
+            "mode": "mock",
+            "planner": "llm",
+            "fault": "none"
+          },
+          "result": {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "mode": "mock",
+            "planner": "llm",
+            "status": "success",
+            "plan": {
+              "accepted": true,
+              "rationale": "\u7528\u6237\u8981\u67e5\u8be2\u4e2d\u56fd\u5883\u5185\u7ea2\u8272\u9884\u8b66\u7684\u6d2a\u6c34\u4e8b\u4ef6\u3002GDACS \u7684 search_gdacs_events \u652f\u6301 eventlist\u3001country\u3001alertlevel \u8fc7\u6ee4\uff0c\u56e0\u6b64\u76f4\u63a5\u4f7f\u7528 FL\u3001China\u3001Red \u8fdb\u884c AND \u7ec4\u5408\u67e5\u8be2\u3002",
+              "calls": [
+                {
+                  "server": "gdacs",
+                  "tool": "search_gdacs_events",
+                  "arguments": {
+                    "eventlist": "FL",
+                    "country": "China",
+                    "alertlevel": "Red"
+                  }
+                }
+              ],
+              "planner": "llm"
+            },
+            "a2a_task_id": "08ff51cc-96a3-4451-9a50-f7b7226210dc",
+            "a2a_state": "completed",
+            "retrieved_events": [
+              {
+                "kind": "retrieved_event",
+                "properties": {
+                  "name": "MOCK synthetic hazard (not a real disaster)",
+                  "eventtype": "FL",
+                  "country": "China",
+                  "alertlevel": "Red",
+                  "fromdate": "2026-10-01T00:00:00",
+                  "todate": "2026-10-02T00:00:00",
+                  "url": "https://example.invalid/mock-event"
+                },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    90.4,
+                    23.7
+                  ]
+                },
+                "source_url": "https://example.invalid/mock-event",
+                "date_claim": "Dates are the upstream event dates; recency is not guaranteed",
+                "age_days_from_reported_end": 8.5,
+                "within_30_days": true
+              }
+            ],
+            "candidate_eo_resources": [],
+            "sources": [
+              "https://example.invalid/mock-event"
+            ],
+            "analysis_suggestions": [
+              {
+                "kind": "general_guidance_not_retrieved_evidence",
+                "text": "For flood monitoring, compare pre/post-event radar acquisitions to assess inundation; validate acquisition dates, AOI coverage, terrain and processing before interpreting change. Optical data can complement radar when cloud permits."
+              }
+            ],
+            "limitations": [
+              "Catalogue candidates are not verified satellite imagery for any GDACS event.",
+              "Recent means reported end within 30 days; naive GDACS timestamps are assumed UTC.",
+              "Rules planner is limited; enable planner=llm for real model decisions."
+            ],
+            "warnings": [],
+            "error": null,
+            "tool_results": [
+              {
+                "server": "gdacs",
+                "tool": "search_gdacs_events",
+                "arguments": {
+                  "eventlist": "FL",
+                  "country": "China",
+                  "alertlevel": "Red"
+                },
+                "status": "success",
+                "records": [
+                  {
+                    "kind": "retrieved_event",
+                    "properties": {
+                      "name": "MOCK synthetic hazard (not a real disaster)",
+                      "eventtype": "FL",
+                      "country": "China",
+                      "alertlevel": "Red",
+                      "fromdate": "2026-10-01T00:00:00",
+                      "todate": "2026-10-02T00:00:00",
+                      "url": "https://example.invalid/mock-event"
+                    },
+                    "geometry": {
+                      "type": "Point",
+                      "coordinates": [
+                        90.4,
+                        23.7
+                      ]
+                    },
+                    "source_url": "https://example.invalid/mock-event",
+                    "date_claim": "Dates are the upstream event dates; recency is not guaranteed",
+                    "age_days_from_reported_end": 8.5,
+                    "within_30_days": true
+                  }
+                ],
+                "raw_output": "{\"type\": \"FeatureCollection\", \"features\": [{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [90.4, 23.7]}, \"properties\": {\"name\": \"MOCK synthetic hazard (not a real disaster)\", \"eventtype\": \"FL\", \"country\": \"China\", \"alertlevel\": \"Red\", \"fromdate\": \"2026-10-01T00:00:00\", \"todate\": \"2026-10-02T00:00:00\", \"url\": \"https://example.invalid/mock-event\"}}]}",
+                "source_url": "https://example.invalid/mock-source",
+                "retrieved_at": "2026-10-10T11:40:27.071298+00:00",
+                "attempts": 1,
+                "date_policy": "recent: end date within 30 days; naive dates assumed UTC"
+              }
+            ],
+            "latency_ms": 7337.6,
+            "total_elapsed_ms": 7340.87
+          },
+          "submitted_at": 1791632419.834834,
+          "deadline_epoch": 1791632539.834834
+        },
+        "trace": [
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "plan",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:19.841904+00:00",
+            "pid": 411492
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "plan",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:25.094114+00:00",
+            "pid": 411492,
+            "planner": "llm",
+            "accepted": true,
+            "tools": [
+              "search_gdacs_events"
+            ],
+            "duration_ms": 5251.16
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "a2a.discover",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:26.283263+00:00",
+            "pid": 411492,
+            "agent": "EO Retrieval Agent (independent EVE demo)",
+            "url": "http://127.0.0.1:9211/"
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "a2a.delegate",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:26.284775+00:00",
+            "pid": 411492,
+            "agent_url": "http://127.0.0.1:9211",
+            "tools": [
+              "search_gdacs_events"
+            ]
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "a2a.agent",
+            "status": "working",
+            "timestamp": "2026-10-10T11:40:26.289366+00:00",
+            "pid": 412028,
+            "a2a_task_id": "08ff51cc-96a3-4451-9a50-f7b7226210dc",
+            "mode": "mock"
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "mcp.discover",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:27.063202+00:00",
+            "pid": 412028,
+            "server": "gdacs",
+            "tools": [
+              "search_gdacs_events",
+              "search_collections"
+            ],
+            "mode": "mock"
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "mcp.call",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:27.066227+00:00",
+            "pid": 412028,
+            "server": "gdacs",
+            "tool": "search_gdacs_events",
+            "arguments": {
+              "eventlist": "FL",
+              "country": "China",
+              "alertlevel": "Red"
+            },
+            "attempt": 1,
+            "mode": "mock"
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "mcp.call",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:27.071298+00:00",
+            "pid": 412028,
+            "server": "gdacs",
+            "tool": "search_gdacs_events",
+            "attempt": 1,
+            "duration_ms": 5.98,
+            "sources": [
+              "https://example.invalid/mock-event"
+            ],
+            "mode": "mock"
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "a2a.agent",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:27.153453+00:00",
+            "pid": 412028,
+            "a2a_task_id": "08ff51cc-96a3-4451-9a50-f7b7226210dc"
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "a2a.get_task",
+            "status": "completed",
+            "timestamp": "2026-10-10T11:40:27.163592+00:00",
+            "pid": 411492,
+            "a2a_task_id": "08ff51cc-96a3-4451-9a50-f7b7226210dc",
+            "duration_ms": 2066.52
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "synthesize",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:27.166619+00:00",
+            "pid": 411492,
+            "sources": [
+              "https://example.invalid/mock-event"
+            ]
+          },
+          {
+            "request_id": "e74151f8-001b-4939-892a-3ed468a93193",
+            "node": "task",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:27.175706+00:00",
+            "pid": 411492,
+            "duration_ms": 7337.6
+          }
+        ],
+        "wall_latency_ms": 8409.29
+      }
+    },
+    {
+      "id": "llm-catalogue-only",
+      "query": "Find Sentinel satellite resources without disaster event searches",
+      "expected": "success",
+      "observed": "success",
+      "passed": true,
+      "tool_selection_correct": true,
+      "required_filters_correct": true,
+      "delegation_eligible": true,
+      "a2a_success": true,
+      "recovered": false,
+      "latency_ms": 5098.73,
+      "packet": {
+        "job": {
+          "task_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+          "thread_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+          "status": "success",
+          "request": {
+            "query": "Find Sentinel satellite resources without disaster event searches",
+            "mode": "mock",
+            "planner": "llm",
+            "fault": "none"
+          },
+          "result": {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "mode": "mock",
+            "planner": "llm",
+            "status": "success",
+            "plan": {
+              "accepted": true,
+              "rationale": "The request asks for Sentinel satellite resources and explicitly excludes disaster event searches. Use the EO Dashboard collection search with the literal keyword 'Sentinel'; no GDACS event search is needed, and no theme or collection code is specified or known.",
+              "calls": [
+                {
+                  "server": "eodashboard",
+                  "tool": "search_collections",
+                  "arguments": {
+                    "keyword": "Sentinel"
+                  }
+                }
+              ],
+              "planner": "llm"
+            },
+            "a2a_task_id": "0c239541-d4a2-4758-af96-fb888085a45c",
+            "a2a_state": "completed",
+            "retrieved_events": [],
+            "candidate_eo_resources": [
+              {
+                "kind": "candidate_eo_resource",
+                "source_url": "https://example.invalid/mock-collection",
+                "event_match_verified": false
+              }
+            ],
+            "sources": [
+              "https://example.invalid/mock-collection"
+            ],
+            "analysis_suggestions": [
+              {
+                "kind": "general_guidance_not_retrieved_evidence",
+                "text": "For flood monitoring, compare pre/post-event radar acquisitions to assess inundation; validate acquisition dates, AOI coverage, terrain and processing before interpreting change. Optical data can complement radar when cloud permits."
+              }
+            ],
+            "limitations": [
+              "Catalogue candidates are not verified satellite imagery for any GDACS event.",
+              "Recent means reported end within 30 days; naive GDACS timestamps are assumed UTC.",
+              "Rules planner is limited; enable planner=llm for real model decisions."
+            ],
+            "warnings": [],
+            "error": null,
+            "tool_results": [
+              {
+                "server": "eodashboard",
+                "tool": "search_collections",
+                "arguments": {
+                  "keyword": "Sentinel"
+                },
+                "status": "success",
+                "records": [
+                  {
+                    "kind": "candidate_eo_resource",
+                    "source_url": "https://example.invalid/mock-collection",
+                    "event_match_verified": false
+                  }
+                ],
+                "raw_output": "Found 1 collection(s):\n\n   MOCK-WATER\n   Title: MOCK flood water resource\n   Themes: water\n   Satellite: MOCK-SAR\n   URL: https://example.invalid/mock-collection\n",
+                "source_url": "https://example.invalid/mock-source",
+                "retrieved_at": "2026-10-10T11:40:32.159684+00:00",
+                "attempts": 1,
+                "date_policy": "recent: end date within 30 days; naive dates assumed UTC"
+              }
+            ],
+            "latency_ms": 4010.62,
+            "total_elapsed_ms": 4014.63
+          },
+          "submitted_at": 1791632428.2503593,
+          "deadline_epoch": 1791632548.2503593
+        },
+        "trace": [
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "plan",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:28.260452+00:00",
+            "pid": 411492
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "plan",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:30.257517+00:00",
+            "pid": 411492,
+            "planner": "llm",
+            "accepted": true,
+            "tools": [
+              "search_collections"
+            ],
+            "duration_ms": 1997.02
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "a2a.discover",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:31.380476+00:00",
+            "pid": 411492,
+            "agent": "EO Retrieval Agent (independent EVE demo)",
+            "url": "http://127.0.0.1:9211/"
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "a2a.delegate",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:31.381994+00:00",
+            "pid": 411492,
+            "agent_url": "http://127.0.0.1:9211",
+            "tools": [
+              "search_collections"
+            ]
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "a2a.agent",
+            "status": "working",
+            "timestamp": "2026-10-10T11:40:31.385032+00:00",
+            "pid": 412028,
+            "a2a_task_id": "0c239541-d4a2-4758-af96-fb888085a45c",
+            "mode": "mock"
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "mcp.discover",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:32.149588+00:00",
+            "pid": 412028,
+            "server": "eodashboard",
+            "tools": [
+              "search_gdacs_events",
+              "search_collections"
+            ],
+            "mode": "mock"
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "mcp.call",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:32.153650+00:00",
+            "pid": 412028,
+            "server": "eodashboard",
+            "tool": "search_collections",
+            "arguments": {
+              "keyword": "[REDACTED]"
+            },
+            "attempt": 1,
+            "mode": "mock"
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "mcp.call",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:32.159684+00:00",
+            "pid": 412028,
+            "server": "eodashboard",
+            "tool": "search_collections",
+            "attempt": 1,
+            "duration_ms": 5.89,
+            "sources": [
+              "https://example.invalid/mock-collection"
+            ],
+            "mode": "mock"
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "a2a.agent",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:32.242703+00:00",
+            "pid": 412028,
+            "a2a_task_id": "0c239541-d4a2-4758-af96-fb888085a45c"
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "a2a.get_task",
+            "status": "completed",
+            "timestamp": "2026-10-10T11:40:32.253394+00:00",
+            "pid": 411492,
+            "a2a_task_id": "0c239541-d4a2-4758-af96-fb888085a45c",
+            "duration_ms": 1992.8
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "synthesize",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:32.256413+00:00",
+            "pid": 411492,
+            "sources": [
+              "https://example.invalid/mock-collection"
+            ]
+          },
+          {
+            "request_id": "588cde21-ced9-48bb-b2dd-9f160ebf05fa",
+            "node": "task",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:32.264987+00:00",
+            "pid": 411492,
+            "duration_ms": 4010.62
+          }
+        ],
+        "wall_latency_ms": 5098.73
+      }
+    },
+    {
+      "id": "llm-out-of-scope",
+      "query": "Write a chocolate cake recipe",
+      "expected": "rejected",
+      "observed": "rejected",
+      "passed": true,
+      "tool_selection_correct": true,
+      "required_filters_correct": true,
+      "delegation_eligible": false,
+      "a2a_success": false,
+      "recovered": false,
+      "latency_ms": 1776.86,
+      "packet": {
+        "job": {
+          "task_id": "b1c023ec-5e27-41a3-98e8-53cb53622218",
+          "thread_id": "b1c023ec-5e27-41a3-98e8-53cb53622218",
+          "status": "rejected",
+          "request": {
+            "query": "Write a chocolate cake recipe",
+            "mode": "mock",
+            "planner": "llm",
+            "fault": "none"
+          },
+          "result": {
+            "request_id": "b1c023ec-5e27-41a3-98e8-53cb53622218",
+            "mode": "mock",
+            "planner": "llm",
+            "status": "rejected",
+            "plan": {
+              "accepted": false,
+              "rationale": "The request asks for a chocolate cake recipe, which is unrelated to Earth observation or disaster response. The available tools only cover GDACS disaster events (earthquakes, cyclones, floods, volcanoes, wildfires, droughts, tsunamis) and EO dashboard collections, so no relevant search can be planned.",
+              "calls": [],
+              "planner": "llm"
+            },
+            "a2a_task_id": null,
+            "a2a_state": null,
+            "retrieved_events": [],
+            "candidate_eo_resources": [],
+            "sources": [],
+            "analysis_suggestions": [],
+            "limitations": [
+              "Catalogue candidates are not verified satellite imagery for any GDACS event.",
+              "Recent means reported end within 30 days; naive GDACS timestamps are assumed UTC.",
+              "Rules planner is limited; enable planner=llm for real model decisions."
+            ],
+            "warnings": [],
+            "error": null,
+            "tool_results": [],
+            "latency_ms": 735.97,
+            "total_elapsed_ms": 739.68
+          },
+          "submitted_at": 1791632433.3004,
+          "deadline_epoch": 1791632553.3004
+        },
+        "trace": [
+          {
+            "request_id": "b1c023ec-5e27-41a3-98e8-53cb53622218",
+            "node": "plan",
+            "status": "started",
+            "timestamp": "2026-10-10T11:40:33.307542+00:00",
+            "pid": 411492
+          },
+          {
+            "request_id": "b1c023ec-5e27-41a3-98e8-53cb53622218",
+            "node": "plan",
+            "status": "success",
+            "timestamp": "2026-10-10T11:40:34.028917+00:00",
+            "pid": 411492,
+            "planner": "llm",
+            "accepted": false,
+            "tools": [],
+            "duration_ms": 720.09
+          },
+          {
+            "request_id": "b1c023ec-5e27-41a3-98e8-53cb53622218",
+            "node": "synthesize",
+            "status": "rejected",
+            "timestamp": "2026-10-10T11:40:34.031958+00:00",
+            "pid": 411492,
+            "sources": []
+          },
+          {
+            "request_id": "b1c023ec-5e27-41a3-98e8-53cb53622218",
+            "node": "task",
+            "status": "rejected",
+            "timestamp": "2026-10-10T11:40:34.040075+00:00",
+            "pid": 411492,
+            "duration_ms": 735.97
+          }
+        ],
+        "wall_latency_ms": 1776.86
+      }
+    }
+  ]
+}

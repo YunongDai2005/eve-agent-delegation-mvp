@@ -7,6 +7,8 @@ It is not an official ESA product or a Pi School-approved release.
 **Recorded evidence (10 October 2026):** a live flood/resource query completed in **16.22s**;
 27 automated tests passed; 21/21 offline case expectations passed; live evaluation returned
 data for 2/3 cases and honestly reported no matching catalogue data for the third.
+Separate **DeepSeek-V4.1-Flash** verification: real LLM planning passed 4/4 small fixture
+cases; a full LLM + live-data demo succeeded in **21.69s**.
 [Raw live run](evidence/last-live.json) · [Evaluation](docs/evaluation.md) · [Inspector check](evidence/inspector-validation.json)
 
 ```powershell
@@ -31,16 +33,17 @@ an EO Dashboard `alos2_floods` collection URL. Results separate **retrieved disa
 as verified imagery for the event. Requests containing “recent” filter reported event end dates
 to the last 30 days; timezone-free GDACS timestamps are assumed UTC and the assumption is stated.
 
-The default **rules** planner is a limited keyword router. Per the selected no-key scope, no
-real LLM execution or model-quality metric is claimed. A real OpenAI-compatible planner is
-implemented and can choose tools/filters from a validated schema; configure it as described
-below. No new ReAct loop, MCP protocol or A2A protocol is implemented here.
+The default **rules** planner is a limited keyword router. The optional OpenAI-compatible
+planner was separately verified with DeepSeek-V4.1-Flash and chooses tools/filters from a
+validated schema. Rules evaluation metrics remain separate from the small real-model sample.
+Configure model access below. No new ReAct loop, MCP protocol or A2A protocol is implemented here.
 
 ## Installation and one-command demo
 
 Validated on **Windows, Python 3.12**. Project sources target Python 3.11+. Internet access is
-needed once to install dependencies and for live external APIs; mock runs need no API keys or
-network after setup. Use the virtual environment's Python explicitly to avoid system packages.
+needed once to install dependencies and for live external APIs; mock runs with the rules
+planner need no API keys or network after setup. LLM planning uses a provider even in mock mode.
+Use the virtual environment's Python explicitly to avoid system packages.
 
 PowerShell 7 (or Windows PowerShell with `-File`):
 
@@ -123,9 +126,28 @@ for an OpenAI-compatible chat-completions provider supporting JSON instructions.
 The LLM selects the plan, not the factual retrieval results. Its JSON output is validated
 against allowlisted server/tool names and argument schemas, with at most four calls. Invalid
 output or missing credentials fails explicitly; no silent fallback to rules/mock occurs.
-This path is implemented but **unverified against a real provider**, because no model
-credentials were supplied. Real provider planning needs its own evaluation before proposal
-claims are expanded. No provider-specific model name is hardcoded.
+Verified provider configuration (use your own key; none is included):
+
+```dotenv
+OPENAI_BASE_URL=https://api.deepseek.com
+OPENAI_MODEL=deepseek-flash
+OPENAI_API_KEY=YOUR_KEY
+```
+
+The [official DeepSeek model identifier](https://api-docs.deepseek.com/updates/) is
+`deepseek-flash` for V4.1 Flash. [Provider metadata](evidence/llm-provider.json),
+[four-case LLM evaluation](evidence/evaluation-mock-llm.json), and
+[LLM + live packet](evidence/llm-live-deepseek-corrected.json) are recorded separately.
+The first live attempt returned `partial`: guessed catalogue filters produced no EO matches.
+The prompt now explains the upstream tool's exact/substring and AND-filter semantics, and the
+corrected live run succeeded. This is a small verification sample, not a model benchmark.
+No provider-specific model name is hardcoded. To repeat the fixture evaluation with real planning:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/evaluate.py --mode mock --planner llm --cases tests/llm-cases.json
+```
+
+This writes `evaluation-mock-llm.json`, preserving the separate rules evaluation.
 
 ## Persistence, trace and limits
 

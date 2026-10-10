@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-10-10T11:41:22.366817+00:00",
+  "base_url": "https://api.deepseek.com",
+  "configured_model": "deepseek-flash",
+  "listed_model": {
+    "id": "deepseek-flash",
+    "name": "DeepSeek-V4.1-Flash",
+    "owned_by": "deepseek"
+  },
+  "protocol": "OpenAI-compatible Chat Completions",
+  "credential_included": false
+}

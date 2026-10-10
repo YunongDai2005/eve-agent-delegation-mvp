@@ -1,0 +1,32 @@
+EVE Delegation Demo | LIVE | planner=llm
+Swagger: http://127.0.0.1:9200/docs | Agent Card: http://127.0.0.1:9201/.well-known/agent-card.json
+
+Request/thread: a86992c3-2b42-410a-9f08-3732fed18061
+  plan                 started       pid=277324
+  plan                 success       17974ms pid=277324
+  a2a.discover         success      EO Retrieval Agent (independent EVE demo) pid=277324
+  a2a.delegate         started       pid=277324
+  a2a.agent            working       pid=26740
+  mcp.discover         success       pid=26740
+  mcp.call             started      search_gdacs_events pid=26740
+  mcp.call             success      search_gdacs_events 8165ms pid=26740
+  mcp.discover         success       pid=26740
+  mcp.call             started      search_collections pid=26740
+  mcp.call             no_data      search_collections 2925ms pid=26740
+  mcp.call             started      search_collections pid=26740
+  mcp.call             no_data      search_collections 5ms pid=26740
+  a2a.agent            partial       pid=26740
+  a2a.get_task         completed     14138ms pid=277324
+  synthesize           partial       pid=277324
+  task                 partial       32134ms pid=277324
+
+RESULT: partial | 33.23s
+  EVENT: Flood in India | 2026-10-03T01:00:00
+  SOURCE: https://www.gdacs.org/report.aspx?eventid=1104121&episodeid=18&eventtype=FL
+  EVENT: Flood in China | 2026-09-27T01:00:00
+  SOURCE: https://www.gdacs.org/report.aspx?eventid=1104081&episodeid=20&eventtype=FL
+  GUIDANCE: For flood monitoring, compare pre/post-event radar acquisitions to assess inundation; validate acquisition dates, AOI coverage, terrain and processing before interpreting change. Optical data can complement radar when cloud permits.
+  WARNING: search_collections: no_data 
+  WARNING: search_collections: no_data 
+
+Full artifacts, raw data, sources and trace: evidence\llm-live-deepseek.json

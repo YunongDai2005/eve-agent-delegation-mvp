@@ -1,11 +1,12 @@
 # Acceptance matrix
 
-The **no-key real-data MVP** is validated under the user's selected scope. Real-model planning
-remains an implemented but unverified extension. This is independent work, not an ESA release.
+The **no-key real-data MVP** is validated, with separate real DeepSeek-V4.1-Flash planning
+verification. This is independent work, not an ESA release.
 
 | Required acceptance item | Result | Reproducible evidence |
 |---|---|---|
 | Real LangGraph execution | Passed | `evidence/last-live.json`, `/api/graph`, actual `docs/langgraph.mmd` |
+| Real LLM plan through full live chain | Passed in small sample | `evidence/llm-live-deepseek-corrected.json`; initial partial run preserved separately |
 | Independently discovered/called A2A Agent | Passed | Different Supervisor/Agent PIDs, discovery, delegate and tasks/get trace |
 | Real MCP tool call | Passed | Official `search_gdacs_events` and `search_collections` calls in live packet |
 | Real external EO-related data | Passed | GDACS GeoJSON + official EO Dashboard STAC collection URL |
@@ -18,8 +19,8 @@ remains an implemented but unverified extension. This is independent work, not a
 
 ## Explicitly incomplete or unmeasured
 
-- Real LLM decisions: not run, per no-key choice. Configure `.env`, run `--planner llm`, then
-  evaluate provider planning separately. Rules metrics are not LLM metrics.
+- General LLM quality: unmeasured. Four real-planning fixture cases and one corrected successful
+  live demo are integration checks; rules metrics are not LLM metrics.
 - GitHub publication: local repository prepared; no remote upload is claimed.
 - Full Inspector UI/conformance suite: original structural validators were exercised only.
 - Live outage recovery statistics: not measured. Mock transient recovery is separately labelled.

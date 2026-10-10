@@ -18,8 +18,8 @@ actual MCP discovery, not a static simulation.”
 .\.venv\Scripts\python.exe demo.py --mode live
 ```
 
-“This run uses the explicitly labelled no-key rules planner. Real LLM planning is an optional
-configured mode and has not been measured here. Notice the two different process IDs, Agent
+“This run uses the explicitly labelled no-key rules planner. An optional LLM mode was separately
+verified with DeepSeek-V4.1-Flash. Notice the two different process IDs, Agent
 Card discovery, A2A delegation and tasks/get, MCP tool calls, and their timings. The returned
 event dates and source links come from the upstream response. These catalogue resources are
 candidates; we have not verified matching satellite acquisitions for this disaster.”
@@ -39,3 +39,7 @@ Run `demo.py --mode mock`, visibly keeping the `MOCK / SYNTHETIC DATA` banner. S
 live evidence packet with its timestamp as a previous captured run, never as current execution.
 For recovery, run `demo.py --mode mock --fault transient`; the trace shows the first error and
 second successful MCP attempt. Keep `--serve` to inspect Swagger or an external A2A Inspector.
+
+For a real-model walkthrough, configure your own key in `.env` and add `--planner llm`.
+Open `evidence/llm-live-deepseek-corrected.json` for the saved 21.69-second successful run.
+Keep the model-backed four-case sample separate from the 21-case rules fixture evaluation.

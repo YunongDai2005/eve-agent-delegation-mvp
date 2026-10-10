@@ -1,0 +1,33 @@
+[
+  {
+    "id": "llm-flood-eo",
+    "query": "Find a recent flood and Earth Observation resources for monitoring",
+    "tools": ["search_gdacs_events", "search_collections"],
+    "expected": "success",
+    "required_filters": [
+      {"tool": "search_gdacs_events", "arguments": {"eventlist": "FL"}},
+      {"tool": "search_collections", "arguments": {"keyword": "flood"}}
+    ]
+  },
+  {
+    "id": "llm-chinese-filters",
+    "query": "查询中国的红色预警洪水事件。",
+    "tools": ["search_gdacs_events"],
+    "expected": "success",
+    "required_filters": [
+      {"tool": "search_gdacs_events", "arguments": {"eventlist": "FL", "country": "China", "alertlevel": "Red"}}
+    ]
+  },
+  {
+    "id": "llm-catalogue-only",
+    "query": "Find Sentinel satellite resources without disaster event searches",
+    "tools": ["search_collections"],
+    "expected": "success"
+  },
+  {
+    "id": "llm-out-of-scope",
+    "query": "Write a chocolate cake recipe",
+    "tools": [],
+    "expected": "rejected"
+  }
+]
